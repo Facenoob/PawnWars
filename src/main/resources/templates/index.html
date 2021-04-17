@@ -1,0 +1,52 @@
+<?php
+//session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/login.css">
+
+</head>
+<body>
+<nav>
+    <ul class="menu">
+        <li><a href="/register">Registration</a></li>
+        <li><a class="active" href="/login">Login</a></li>
+    </ul>
+</nav>
+
+<br/>
+
+<main>
+    <div class="container1">
+        <form method="POST" action="/login">
+            <label><b>Nickname</b></label>
+            <input type="text" placeholder="Nickname" name="nickname" required>
+
+            <label><b>Password</b></label>
+            <input type="password" placeholder="Password" name="password" required>
+            <br/><br/><br/>
+            <button type="submit" name="login-button">Login</button><br/>
+        </form>
+    </div>
+    <hr/>
+    <div class="container2">
+        <form method="get" onclick="window.location.href='/board'">
+            <button type="button" class="regist">Board</button>
+        </form>
+    </div>
+    <br/>
+    <div class="container2">
+        <form method="get" onclick="window.location.href='/'">
+            <button type="reset" class="cancelbtn">Back</button>
+        </form>
+    </div>
+
+
+
+</main>
+</body>
+</html>
