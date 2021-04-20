@@ -46,6 +46,7 @@ public class PawnWarsService {
         final boolean toIsValid = validator.validateInput(toIndex);
         final boolean fromPawn = validator.validatePawn(fromIndex);
         final boolean toPawn = validator.validateNoPawn(toIndex);
+        board = validator.Stepper(fromIndex, toIndex);
     }
 }
 
