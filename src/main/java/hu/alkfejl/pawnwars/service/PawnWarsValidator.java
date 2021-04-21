@@ -26,14 +26,26 @@ public class PawnWarsValidator {
         final Pawn[][] board = PawnWarsService.getBoard();
         return board[Integer.parseInt(input[2])][Integer.parseInt(input[3])] == null;
     }
+
     //ez a rész ami nekem feladta leckét de nagyon
     public boolean diagonalValid(String[] input) {
         final Pawn[][] board = PawnWarsService.getBoard();
+        boolean array[] = new boolean[8];
+        int row=Integer.parseInt(input[0]);
+        int column=Integer.parseInt(input[1]);
         int index = 0;
-        for (int i = Integer.parseInt(input[0]) - 1; i > 0; i--) {
+        do{
+            row-=1;
+            column+=1;
+            array[index]=board[row][column].isWhite();
+            index++;
 
-        }
+        }while(row!=0||column!=8);
+
+
     }
+
+}
 
     public LinkedList<String> possibleMoves(String[] input) {
         LinkedList<String> moves = new LinkedList<String>();
