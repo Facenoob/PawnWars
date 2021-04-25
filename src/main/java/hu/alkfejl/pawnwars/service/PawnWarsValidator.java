@@ -3,7 +3,7 @@ package hu.alkfejl.pawnwars.service;
 import hu.alkfejl.pawnwars.model.Pawn;
 import org.springframework.stereotype.Service;
 
-import java.sql.Array;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 @Service
@@ -11,6 +11,7 @@ public class PawnWarsValidator {
     public boolean validateInput(String[] input) {
         for (String value : input) {
             if (Integer.parseInt(value) < 0 && Integer.parseInt(value) >= 8) {
+                System.out.println("Invalid input: Out of table!");
                 return false;
             }
         }
@@ -19,54 +20,101 @@ public class PawnWarsValidator {
 
     public boolean validatePawn(String[] input) {
         final Pawn[][] board = PawnWarsService.getBoard();
-        return board[Integer.parseInt(input[0])][Integer.parseInt(input[1])] != null;
-    }
-
-    public boolean validateNoPawn(String[] input) {
-        final Pawn[][] board = PawnWarsService.getBoard();
-        return board[Integer.parseInt(input[2])][Integer.parseInt(input[3])] == null;
-    }
-
-    //ez a rész ami nekem feladta leckét de nagyon
-    public boolean diagonalValid(String[] input) {
-        final Pawn[][] board = PawnWarsService.getBoard();
-        boolean array[] = new boolean[8];
-        int row=Integer.parseInt(input[0]);
-        int column=Integer.parseInt(input[1]);
-        int index = 0;
-        do{
-            row-=1;
-            column+=1;
-            array[index]=board[row][column].isWhite();
-            index++;
-
-        }while(row!=0||column!=8);
-
-
-    }
-
-}
-
-    public LinkedList<String> possibleMoves(String[] input) {
-        LinkedList<String> moves = new LinkedList<String>();
-        final Pawn[][] board = PawnWarsService.getBoard();
-        if (board[Integer.parseInt(input[0]) - 1][Integer.parseInt(input[1])] == null) {
-            moves.add(String.valueOf(Integer.parseInt(input[0]) - 1));//előre már tudunk lépni ha minden igaz
+        if (board[Integer.parseInt(input[0])][Integer.parseInt(input[1])] != null) {
+            return true;
         }
-        return moves;
-
+        System.out.println("Invalid input: No pawn detected! ");
+        return false;
     }
 
-    public boolean validateStep(String[] input, LinkedList moves) {
-        return moves.contains(input);
-    }
+//    public boolean singleStepValidate(String[] from, String[] to) {
+//        if((Math.abs(Integer.parseInt(to[0]) - Integer.parseInt(from[0])) == 1 && Math.abs(Integer.parseInt(to[1]) - Integer.parseInt(from[1])) == 1)){
+//            return true;
+//        }
+//        System.out.println("Invalid input:  ");
+//        return false;
+//    }
 
-    public Pawn[][] Stepper(String[] fromInput, String[] toInput) {
+    public boolean jumpValidate(String[] originalFrom, String[] to) {
+        if (Arrays.equals(originalFrom, to)) {
+            System.out.println("Valid step!");
+            return true;
+        }
+        final String[] from = Arrays.copyOf(originalFrom, originalFrom.length);
         final Pawn[][] board = PawnWarsService.getBoard();
-        board[Integer.parseInt(toInput[0])][Integer.parseInt(toInput[1])] = board[Integer.parseInt(fromInput[0])][Integer.parseInt(fromInput[1])];
-        board[Integer.parseInt(fromInput[0])][Integer.parseInt(fromInput[1])] = null;
-        return board;
+        final Pawn originalPawn = board[Integer.parseInt(from[0])][Integer.parseInt(from[1])];
+        boolean rightDirection = Integer.parseInt(to[1]) > Integer.parseInt(from[1]);
+        final int toRow = Integer.parseInt(to[0]);
+        final int fromRow = Integer.parseInt(from[0]);
+        final int fromColumn = Integer.parseInt(from[1]);
+        if (rightDirection) {
+            Pawn diagonalPawn;
+            if (originalPawn.isWhite()) {
+                diagonalPawn = board[fromRow - 1][fromColumn + 1];
+                System.out.println("Diagonal white pawn right init");
+            } else {
+                diagonalPawn = board[fromRow + 1][fromColumn + 1];
+                System.out.println("Diagonal black pawn right init");
+            }
+            boolean multiStep = diagonalPawn != null && diagonalPawn.isWhite() == originalPawn.isWhite();
+            if (multiStep && originalPawn.isWhite()) {
+                from[0] = String.valueOf(fromRow - 2);
+                from[1] = String.valueOf(fromColumn + 2);
+                System.out.println("White Right from pawn overwrite");
+            }
+            if (multiStep && !originalPawn.isWhite()) {
+                from[0] = String.valueOf(fromRow + 2);
+                from[1] = String.valueOf(fromColumn + 2);
+                System.out.println("Black Right from pawn overwrite");
+            }
+            if (!multiStep && originalPawn.isWhite()) {
+                from[0] = String.valueOf(fromRow - 1);
+                from[1] = String.valueOf(fromColumn + 1);
+                System.out.println("White Right from pawn overwrite(not multistep)");
+            }
+            if (!multiStep && !originalPawn.isWhite()) {
+                from[0] = String.valueOf(fromRow + 1);
+                from[1] = String.valueOf(fromColumn + 1);
+                System.out.println("Black Right from pawn overwrite(not multistep)");
+            }
+        } else {
+            Pawn diagonalPawn;
+            if (originalPawn.isWhite()) {
+                diagonalPawn = board[fromRow - 1][fromColumn - 1];
+                System.out.println("Diagonal white pawn left init");
+            } else {
+                diagonalPawn = board[fromRow + 1][fromColumn - 1];
+                System.out.println("Diagonal black pawn left init");
+            }
+            boolean multiStep = diagonalPawn != null && diagonalPawn.isWhite() == originalPawn.isWhite();
+            if (multiStep && originalPawn.isWhite()) {
+                from[0] = String.valueOf(fromRow - 2);
+                from[1] = String.valueOf(fromColumn - 2);
+                System.out.println("White left from pawn overwrite");
+            }
+            if (multiStep && !originalPawn.isWhite()) {
+                from[0] = String.valueOf(fromRow + 2);
+                from[1] = String.valueOf(fromColumn - 2);
+                System.out.println("Black left from pawn overwrite");
+            }
+            if (!multiStep && originalPawn.isWhite()) {
+                from[0] = String.valueOf(fromRow - 1);
+                from[1] = String.valueOf(fromColumn - 1);
+                System.out.println("White left from pawn overwrite(not multistep)");
+            }
+            if (!multiStep && !originalPawn.isWhite()) {
+                from[0] = String.valueOf(fromRow + 1);
+                from[1] = String.valueOf(fromColumn - 1);
+                System.out.println("Black left from pawn overwrite(not multistep)");
+            }
+        }
+        if (fromRow > toRow) {
+            System.out.println("Invalid input: Not in range!");
+            return false;
+        }
+        return jumpValidate(from, to);
     }
+
 }
 
 
