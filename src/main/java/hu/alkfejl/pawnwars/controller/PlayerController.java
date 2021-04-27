@@ -21,25 +21,25 @@ public class PlayerController {
 
     //creating a get mapping that retrieves all the students detail from the database
     @GetMapping("/player")
-    private List<Player> getAllStudent() {
-        return playerService.getAllStudent();
+    private List<Player> getAllPlayer() {
+        return playerService.getAllPlayer();
     }
 
     //creating a get mapping that retrieves the detail of a specific student
     @GetMapping("/player/{id}")
-    private Player getStudent(@PathVariable("id") int id) {
-        return playerService.getStudentById(id);
+    private Player getPlayer(@PathVariable("id") int id) {
+        return playerService.getPlayerById(id);
     }
 
     //creating a delete mapping that deletes a specific student
     @DeleteMapping("/player/{id}")
-    private void deleteStudent(@PathVariable("id") int id) {
+    private void deletePlayer(@PathVariable("id") int id) {
         playerService.delete(id);
     }
 
     //creating post mapping that post the student detail in the database
     @PostMapping("/player")
-    private int saveStudent(@RequestBody Player player) {
+    private int savePlayer(@RequestBody Player player) {
         playerService.saveOrUpdate(player);
         return player.getId();
     }

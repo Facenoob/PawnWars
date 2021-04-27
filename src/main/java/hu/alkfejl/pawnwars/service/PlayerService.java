@@ -14,19 +14,19 @@ public class PlayerService {
     PlayerRepository playerRepository;
 
     //getting all student records
-    public List<Player> getAllStudent() {
+    public List<Player> getAllPlayer() {
         List<Player> players = new ArrayList<Player>();
-        playerRepository.findAll().forEach(student -> players.add(student));
+        playerRepository.findAll().forEach(player -> players.add(player));
         return players;
     }
 
     //getting a specific record
-    public Player getStudentById(int id) {
+    public Player getPlayerById(int id) {
         return playerRepository.findById(id).get();
     }
 
-    public void saveOrUpdate(Player student) {
-        playerRepository.save(student);
+    public void saveOrUpdate(Player player) {
+        playerRepository.save(player);
     }
 
     //deleting a specific record
