@@ -45,34 +45,63 @@ public class PawnWarsValidator {
         final Pawn originalPawn = board[Integer.parseInt(from[0])][Integer.parseInt(from[1])];
         boolean rightDirection = Integer.parseInt(to[1]) > Integer.parseInt(from[1]);
         final int toRow = Integer.parseInt(to[0]);
+        final int toColumn = Integer.parseInt(to[1]);
         final int fromRow = Integer.parseInt(from[0]);
         final int fromColumn = Integer.parseInt(from[1]);
+        if (fromRow < 0 || fromRow > 7 || fromColumn < 0 || fromColumn > 7 || toRow < 0 || toRow > 7 || toColumn < 0 || toColumn > 7) {
+            System.out.println("Invalid Input: This pawn is in a galaxy far far away");
+            return false;
+        }
         if (rightDirection) {
             Pawn diagonalPawn;
             if (originalPawn.isWhite()) {
+                if (fromRow - 1 < 0 || fromColumn + 1 > 7) {
+                    System.out.println("Invalid Input: This pawn is in a galaxy far far away");
+                    return false;
+                }
                 diagonalPawn = board[fromRow - 1][fromColumn + 1];
                 System.out.println("Diagonal white pawn right init");
             } else {
+                if (fromRow + 1 > 7 || fromColumn + 1 > 7) {
+                    System.out.println("Invalid Input: This pawn is in a galaxy far far away");
+                    return false;
+                }
                 diagonalPawn = board[fromRow + 1][fromColumn + 1];
                 System.out.println("Diagonal black pawn right init");
             }
             boolean multiStep = diagonalPawn != null && diagonalPawn.isWhite() == originalPawn.isWhite();
             if (multiStep && originalPawn.isWhite()) {
+                if (fromRow - 2 < 0 || fromColumn + 2 > 7) {
+                    System.out.println("Invalid Input: This pawn is in a galaxy far far away");
+                    return false;
+                }
                 from[0] = String.valueOf(fromRow - 2);
                 from[1] = String.valueOf(fromColumn + 2);
                 System.out.println("White Right from pawn overwrite");
             }
             if (multiStep && !originalPawn.isWhite()) {
+                if (fromColumn + 2 > 7) {
+                    System.out.println("Invalid Input: This pawn is in a galaxy far far away");
+                    return false;
+                }
                 from[0] = String.valueOf(fromRow + 2);
                 from[1] = String.valueOf(fromColumn + 2);
                 System.out.println("Black Right from pawn overwrite");
             }
             if (!multiStep && originalPawn.isWhite()) {
+                if (fromRow - 1 < 0 || fromColumn + 1 > 7) {
+                    System.out.println("Invalid Input: This pawn is in a galaxy far far away");
+                    return false;
+                }
                 from[0] = String.valueOf(fromRow - 1);
                 from[1] = String.valueOf(fromColumn + 1);
                 System.out.println("White Right from pawn overwrite(not multistep)");
             }
             if (!multiStep && !originalPawn.isWhite()) {
+                if (fromColumn + 1 > 7) {
+                    System.out.println("Invalid Input: This pawn is in a galaxy far far away");
+                    return false;
+                }
                 from[0] = String.valueOf(fromRow + 1);
                 from[1] = String.valueOf(fromColumn + 1);
                 System.out.println("Black Right from pawn overwrite(not multistep)");
@@ -80,35 +109,63 @@ public class PawnWarsValidator {
         } else {
             Pawn diagonalPawn;
             if (originalPawn.isWhite()) {
+                if (fromRow - 1 < 0 || fromColumn - 1 < 0) {
+                    System.out.println("Invalid Input: This pawn is in a galaxy far far away");
+                    return false;
+                }
                 diagonalPawn = board[fromRow - 1][fromColumn - 1];
                 System.out.println("Diagonal white pawn left init");
             } else {
+                if (fromRow + 1 > 7 || fromColumn - 1 < 0) {
+                    System.out.println("Invalid Input: This pawn is in a galaxy far far away");
+                    return false;
+                }
                 diagonalPawn = board[fromRow + 1][fromColumn - 1];
                 System.out.println("Diagonal black pawn left init");
             }
             boolean multiStep = diagonalPawn != null && diagonalPawn.isWhite() == originalPawn.isWhite();
             if (multiStep && originalPawn.isWhite()) {
+                if (fromRow - 2 < 0 || fromColumn - 2 < 0) {
+                    System.out.println("Invalid Input: This pawn is in a galaxy far far away");
+                    return false;
+                }
                 from[0] = String.valueOf(fromRow - 2);
                 from[1] = String.valueOf(fromColumn - 2);
                 System.out.println("White left from pawn overwrite");
             }
             if (multiStep && !originalPawn.isWhite()) {
+                if (fromRow + 2 > 7 || fromColumn - 2 < 0) {
+                    System.out.println("Invalid Input: This pawn is in a galaxy far far away");
+                    return false;
+                }
                 from[0] = String.valueOf(fromRow + 2);
                 from[1] = String.valueOf(fromColumn - 2);
                 System.out.println("Black left from pawn overwrite");
             }
             if (!multiStep && originalPawn.isWhite()) {
+                if (fromRow - 1 < 0 || fromColumn - 1 < 0) {
+                    System.out.println("Invalid Input: This pawn is in a galaxy far far away");
+                    return false;
+                }
                 from[0] = String.valueOf(fromRow - 1);
                 from[1] = String.valueOf(fromColumn - 1);
                 System.out.println("White left from pawn overwrite(not multistep)");
             }
             if (!multiStep && !originalPawn.isWhite()) {
+                if (fromRow + 1 > 7 || fromColumn - 1 <0 ) {
+                    System.out.println("Invalid Input: This pawn is in a galaxy far far away");
+                    return false;
+                }
                 from[0] = String.valueOf(fromRow + 1);
                 from[1] = String.valueOf(fromColumn - 1);
                 System.out.println("Black left from pawn overwrite(not multistep)");
             }
         }
-        if (fromRow > toRow) {
+        if (fromRow > toRow && !originalPawn.isWhite()) {
+            System.out.println("Invalid input: Not in range!");
+            return false;
+        }
+        if (fromRow < toRow && originalPawn.isWhite()) {
             System.out.println("Invalid input: Not in range!");
             return false;
         }

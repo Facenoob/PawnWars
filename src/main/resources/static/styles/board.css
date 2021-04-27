@@ -1,5 +1,12 @@
 .field{
-    height: 40px;
-    width: 40px;
+    height: 89px;
+    width: 89px;
     border: 1px solid black;
+}
+table{
+    text-align: center;
+    background-image:url("../pictures/boardf.png");
+    background-size: 99.5% 99.5%;
+    background-repeat: no-repeat;
+    background-position: center center;
 }

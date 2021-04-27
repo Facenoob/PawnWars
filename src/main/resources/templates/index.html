@@ -1,52 +1,50 @@
-<?php
-//session_start();
-?>
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="../css/login.css">
-
+    <title></title>
+    <meta http-equiv="content-type" content="text/html; charset=" UTF-8
+    ">
+    <script src="jquery-mobile/jquery-1.6.4.min.js" type="text/javascript"></script>
+    <script src="jquery-mobile/jquery.mobile-1.0.min.js" type="text/javascript"></script>
 </head>
 <body>
-<nav>
-    <ul class="menu">
-        <li><a href="/register">Registration</a></li>
-        <li><a class="active" href="/login">Login</a></li>
-    </ul>
-</nav>
-
-<br/>
-
-<main>
-    <div class="container1">
-        <form method="POST" action="/login">
-            <label><b>Nickname</b></label>
-            <input type="text" placeholder="Nickname" name="nickname" required>
-
-            <label><b>Password</b></label>
-            <input type="password" placeholder="Password" name="password" required>
-            <br/><br/><br/>
-            <button type="submit" name="login-button">Login</button><br/>
-        </form>
+<div data-role="page" id="page">
+    <div data-role="content">
+        <table width="100%" border="0" id="friends" class="menu">
+            <tr id="friend1">
+                <td>First name</td>
+                <td>Surname</td>
+            </tr>
+            <tr id="friend2">
+                <td>First name</td>
+                <td>Surname</td>
+            </tr>
+            <tr id="friend3">
+                <td>First name</td>
+                <td>Surname</td>
+            </tr>
+            <tr id="friend4">
+                <td>First name</td>
+                <td>Surname</td>
+            </tr>
+            <tr id="friend5">
+                <td>First name</td>
+                <td>Surname</td>
+            </tr>
+        </table>
+        <script>
+            var tds = document.getElementsByTagName("td");
+            var trs = document.getElementsByTagName("tr")
+            var row = 0;
+            for (var k = 0, l = trs.length; k < l; ++k) {
+                for (var i = 0, j = tds.length; i < j; ++i)
+                    if (k % 2 == 0) {
+                        if (i % 2 == 0) {
+                            tds[i].style.backgroundColor = "#365AAD";
+                        }
+                    }
+            }
+        </script>
     </div>
-    <hr/>
-    <div class="container2">
-        <form method="get" onclick="window.location.href='/board'">
-            <button type="button" class="regist">Board</button>
-        </form>
-    </div>
-    <br/>
-    <div class="container2">
-        <form method="get" onclick="window.location.href='/'">
-            <button type="reset" class="cancelbtn">Back</button>
-        </form>
-    </div>
-
-
-
-</main>
+</div>
 </body>
 </html>
