@@ -4,10 +4,10 @@ import hu.alkfejl.pawnwars.model.Pawn;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 
 @Service
 public class PawnWarsValidator {
+
     public boolean validateInput(String[] input) {
         for (String value : input) {
             if (Integer.parseInt(value) < 0 && Integer.parseInt(value) >= 8) {
@@ -26,6 +26,7 @@ public class PawnWarsValidator {
         System.out.println("Invalid input: No pawn detected! ");
         return false;
     }
+
 
 //    public boolean singleStepValidate(String[] from, String[] to) {
 //        if((Math.abs(Integer.parseInt(to[0]) - Integer.parseInt(from[0])) == 1 && Math.abs(Integer.parseInt(to[1]) - Integer.parseInt(from[1])) == 1)){
@@ -48,10 +49,6 @@ public class PawnWarsValidator {
         final int toColumn = Integer.parseInt(to[1]);
         final int fromRow = Integer.parseInt(from[0]);
         final int fromColumn = Integer.parseInt(from[1]);
-        if (fromRow < 0 || fromRow > 7 || fromColumn < 0 || fromColumn > 7 || toRow < 0 || toRow > 7 || toColumn < 0 || toColumn > 7) {
-            System.out.println("Invalid Input: This pawn is in a galaxy far far away");
-            return false;
-        }
         if (rightDirection) {
             Pawn diagonalPawn;
             if (originalPawn.isWhite()) {
@@ -69,7 +66,7 @@ public class PawnWarsValidator {
                 diagonalPawn = board[fromRow + 1][fromColumn + 1];
                 System.out.println("Diagonal black pawn right init");
             }
-            boolean multiStep = diagonalPawn != null && diagonalPawn.isWhite() == originalPawn.isWhite();
+            boolean multiStep = diagonalPawn != null /*&& diagonalPawn.isWhite() == originalPawn.isWhite()*/;
             if (multiStep && originalPawn.isWhite()) {
                 if (fromRow - 2 < 0 || fromColumn + 2 > 7) {
                     System.out.println("Invalid Input: This pawn is in a galaxy far far away");
@@ -169,8 +166,10 @@ public class PawnWarsValidator {
             System.out.println("Invalid input: Not in range!");
             return false;
         }
+
         return jumpValidate(from, to);
     }
+
 
 }
 

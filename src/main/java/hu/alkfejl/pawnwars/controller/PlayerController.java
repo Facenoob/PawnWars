@@ -3,14 +3,11 @@ package hu.alkfejl.pawnwars.controller;
 import java.util.List;
 
 import hu.alkfejl.pawnwars.model.Player;
+import hu.alkfejl.pawnwars.service.PawnWarsService;
 import hu.alkfejl.pawnwars.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 //creating RestController
 @RestController
@@ -18,9 +15,11 @@ public class PlayerController {
     //autowired the StudentService class
     @Autowired
     PlayerService playerService;
+    @Autowired
+    PawnWarsService pawnWarsService;
 
     //creating a get mapping that retrieves all the students detail from the database
-    @GetMapping("/player")
+    @GetMapping("/players")
     private List<Player> getAllPlayer() {
         return playerService.getAllPlayer();
     }
@@ -38,9 +37,11 @@ public class PlayerController {
     }
 
     //creating post mapping that post the student detail in the database
-    @PostMapping("/player")
-    private int savePlayer(@RequestBody Player player) {
-        playerService.saveOrUpdate(player);
-        return player.getId();
+    @PostMapping(value = "/player")
+    private String savePlayer(String player1,String player2, Model model) {
+        playerService.saveOrUpdate(playerService.handlePlayer(player1));
+        playerService.saveOrUpdate(playerService.handlePlayer(player2));
+        model.addAttribute("board", pawnWarsService.createBoard());
+        return "board";
     }
 }

@@ -1,7 +1,6 @@
 package hu.alkfejl.pawnwars.service;
 
 import hu.alkfejl.pawnwars.model.Pawn;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +49,16 @@ public class PawnWarsService {
         if (fromIsValid && toIsValid && fromPawn && !toPawn && jumpValidate) {
             board = stepper.Stepper(fromIndex, toIndex);
         }
+//        final int endValidate= validator.EndGameValidator();
+//        if(endValidate!=0){
+//            if(endValidate==1){
+//                System.out.println("Az 1-es játékos nyert.");
+//            }
+//            else{
+//                System.out.println("A 2-es játékos nyert.");
+//            }
+//
+//        }
 
     }
 }

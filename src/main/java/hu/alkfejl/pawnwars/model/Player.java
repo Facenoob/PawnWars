@@ -1,36 +1,31 @@
 package hu.alkfejl.pawnwars.model;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-//mark class as an Entity
+
+import javax.persistence.*;
+
 @Entity
-//defining class name as Table name
 @Table
-public class Player
-{
-    //mark id as primary key
+public class Player {
     @Id
-    //defining id as column name
-    @Column
-    private int id;
-    //defining name as column name
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int PLAYER_ID;
     @Column
     private String name;
-    public int getId()
-    {
-        return id;
+    public Player() {
     }
-    public void setId(int id)
-    {
-        this.id = id;
+
+    public int getId(){
+        return PLAYER_ID;
     }
-    public String getName()
-    {
+
+    public void setId(int PLAYER_ID){
+        this.PLAYER_ID = PLAYER_ID;
+    }
+
+    public String getName(){
         return name;
     }
-    public void setName(String name)
-    {
+
+    public void setName(String name){
         this.name = name;
     }
 

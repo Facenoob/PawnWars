@@ -1,7 +1,9 @@
 package hu.alkfejl.pawnwars.controller;
 
+import hu.alkfejl.pawnwars.model.Player;
 import hu.alkfejl.pawnwars.service.PawnWarsService;
 
+import hu.alkfejl.pawnwars.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PawnWarsController {
     @Autowired
     private PawnWarsService pawnWarsService;
-
 
     @PostMapping(value = "/create")
     public String create(Model model) {
