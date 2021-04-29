@@ -1,7 +1,7 @@
 package hu.alkfejl.pawnwars.repositories;
-import org.hamcrest.Condition;
+import hu.alkfejl.pawnwars.model.Steps;
 import org.springframework.data.repository.CrudRepository;
 
 
-public interface StepRepository extends CrudRepository<Condition.Step, Integer> {
+public interface StepRepository extends CrudRepository<Steps, Integer> {
 }
