@@ -27,14 +27,18 @@ public class PawnWarsValidator {
         return false;
     }
 
+    public int endGameValidator() {
+        final Pawn[][] board = PawnWarsService.getBoard();
+        if (board[0][1] != null && board[0][3] != null && board[0][5] != null && board[0][7] != null && board[1][0] != null && board[1][2] != null && board[1][4] != null && board[1][6] != null && board[0][1].isWhite() && board[0][3].isWhite() && board[0][5].isWhite() && board[0][7].isWhite() && board[1][0].isWhite() && board[1][2].isWhite() && board[1][4].isWhite() && board[1][6].isWhite()) {
+            return 1;
+        } else {
+            if (board[7][0] != null && board[7][2] != null && board[7][4] != null && board[7][6] != null && board[6][1] != null && board[6][3] != null && board[6][5] != null && board[6][7] != null && !board[7][0].isWhite() && !board[7][2].isWhite() && !board[7][4].isWhite() && !board[7][6].isWhite() && !board[6][1].isWhite() && !board[6][3].isWhite() && !board[6][5].isWhite() && !board[6][7].isWhite()) {
+                return 2;
+            }
+            return 0;
+        }
 
-//    public boolean singleStepValidate(String[] from, String[] to) {
-//        if((Math.abs(Integer.parseInt(to[0]) - Integer.parseInt(from[0])) == 1 && Math.abs(Integer.parseInt(to[1]) - Integer.parseInt(from[1])) == 1)){
-//            return true;
-//        }
-//        System.out.println("Invalid input:  ");
-//        return false;
-//    }
+    }
 
     public boolean jumpValidate(String[] originalFrom, String[] to) {
         if (Arrays.equals(originalFrom, to)) {
@@ -66,7 +70,7 @@ public class PawnWarsValidator {
                 diagonalPawn = board[fromRow + 1][fromColumn + 1];
                 System.out.println("Diagonal black pawn right init");
             }
-            boolean multiStep = diagonalPawn != null /*&& diagonalPawn.isWhite() == originalPawn.isWhite()*/;
+            boolean multiStep = diagonalPawn != null && diagonalPawn.isWhite() == originalPawn.isWhite();
             if (multiStep && originalPawn.isWhite()) {
                 if (fromRow - 2 < 0 || fromColumn + 2 > 7) {
                     System.out.println("Invalid Input: This pawn is in a galaxy far far away");
@@ -149,7 +153,7 @@ public class PawnWarsValidator {
                 System.out.println("White left from pawn overwrite(not multistep)");
             }
             if (!multiStep && !originalPawn.isWhite()) {
-                if (fromRow + 1 > 7 || fromColumn - 1 <0 ) {
+                if (fromRow + 1 > 7 || fromColumn - 1 < 0) {
                     System.out.println("Invalid Input: This pawn is in a galaxy far far away");
                     return false;
                 }
@@ -170,8 +174,8 @@ public class PawnWarsValidator {
         return jumpValidate(from, to);
     }
 
-
 }
+
 
 
 

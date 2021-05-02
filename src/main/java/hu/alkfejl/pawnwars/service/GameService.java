@@ -1,7 +1,6 @@
 package hu.alkfejl.pawnwars.service;
 
 import hu.alkfejl.pawnwars.model.Game;
-import hu.alkfejl.pawnwars.model.Player;
 import hu.alkfejl.pawnwars.repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,11 +16,21 @@ public class GameService {
         gameRepository.findAll().forEach(game -> games.add(game));
         return games;
     }
-    public Game getPlayerById(int id) {
-        return playerRepository.findById(id).get();
+    public Game getGameById(int id) {
+        return gameRepository.findById(id).get();
     }
 
-    public void saveOrUpdate(Player player) {
-        playerRepository.save(player);
+    public void saveOrUpdate(Game game) {
+        gameRepository.save(game);
+    }
+    public void delete(int id) {
+        gameRepository.deleteById(id);
+    }
+    public Game handleGame(int game_ID,int playerOne,int playerTwo){
+        Game match= new Game();
+        match.setMatch_ID(game_ID);
+        match.setPlayerOne_ID(playerOne);
+        match.setPlayerTwo_ID(playerTwo);
+        return match;
     }
 }

@@ -19,25 +19,30 @@ public class GameController {
     @Autowired
     private GameService gameService;
 
-    @GetMapping(value = "/board")
+    @GetMapping(value = "/gamemaker")
     public String board(Model model) {
         model.addAttribute("board", PawnWarsService.getBoard());
         return "board";
     }
+
     @GetMapping("/games")
     private List<Game> getAllGames() {
         return gameService.getAllGames();
     }
+
     @GetMapping("/game/{id}")
     private Game getGame(@PathVariable("id") int id) {
         return gameService.getGameById(id);
     }
+
     @DeleteMapping("/game/{id}")
-    private void deleteGame(@PathVariable("id") int id) {gameService.delete(id);
+    private void deleteGame(@PathVariable("id") int id) {
+        gameService.delete(id);
     }
+
     @PostMapping(value = "/game")
-    private String saveGame(int player1,int player2, Model model) {
-        gameService.saveOrUpdate(gameService.handlePlayer(player1,player2));
+    private String saveGame(int game_ID, int playerOne, int playerTwo, Model model) {
+        gameService.saveOrUpdate(gameService.handleGame(game_ID, playerOne, playerTwo));
         model.addAttribute("board", pawnWarsService.createBoard());
         return "board";
     }

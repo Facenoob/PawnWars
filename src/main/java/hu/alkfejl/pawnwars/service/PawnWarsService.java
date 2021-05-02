@@ -1,6 +1,7 @@
 package hu.alkfejl.pawnwars.service;
 
 import hu.alkfejl.pawnwars.model.Pawn;
+import hu.alkfejl.pawnwars.model.Steps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 public class PawnWarsService {
     @Autowired
     private PawnWarsValidator validator;
+//    @Autowired
+//    private StepService stepService;
     @Autowired
     private PawnWarsStepper stepper;
     private static Pawn[][] board;
@@ -46,19 +49,20 @@ public class PawnWarsService {
         final boolean fromPawn = validator.validatePawn(fromIndex);
         final boolean toPawn = validator.validatePawn(toIndex);
         final boolean jumpValidate = validator.jumpValidate(fromIndex, toIndex);
+//        final Steps steps= stepService.stepMaker();
+        final int endValidate= validator.endGameValidator();
         if (fromIsValid && toIsValid && fromPawn && !toPawn && jumpValidate) {
             board = stepper.Stepper(fromIndex, toIndex);
         }
-//        final int endValidate= validator.EndGameValidator();
-//        if(endValidate!=0){
-//            if(endValidate==1){
-//                System.out.println("Az 1-es játékos nyert.");
-//            }
-//            else{
-//                System.out.println("A 2-es játékos nyert.");
-//            }
-//
-//        }
+        if(endValidate!=0){
+            if(endValidate==1){
+                System.out.println("Az 1-es játékos nyert.");
+            }
+            else{
+                System.out.println("A 2-es játékos nyert.");
+            }
+
+        }
 
     }
 }

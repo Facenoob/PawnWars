@@ -33,6 +33,7 @@ public class PlayerService {
     public void delete(int id) {
         playerRepository.deleteById(id);
     }
+
     public Player handlePlayer(String player){
         final String pOne = player;
         Player PlatOne= new Player();
